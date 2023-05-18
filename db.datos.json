@@ -1,0 +1,29 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "ads - editado",
+      "description": "asd - editado"
+    },
+    {
+      "id": 2,
+      "name": "asd",
+      "description": "asd"
+    },
+    {
+      "id": 3,
+      "name": "asd",
+      "description": "asd"
+    },
+    {
+      "id": 4,
+      "name": "3453",
+      "description": "asdf"
+    },
+    {
+      "id": 5,
+      "name": "asd - editado",
+      "description": "asda -e dit"
+    }
+  ]
+}

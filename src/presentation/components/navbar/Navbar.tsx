@@ -9,18 +9,22 @@ import {
   List,
   Drawer,
   ListItemText,
+  Button,
 } from "@mui/material";
 import { FC, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
-import { Home, MiscellaneousServices } from "@mui/icons-material";
+import logoImg from "../media/logo.png";
 
-import { useNavigate } from "react-router-dom";
+import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import {
+  Contacts,
+  Home,
+  ListAlt,
+  MiscellaneousServices,
+} from "@mui/icons-material";
 
 export const Navbar: FC = () => {
-  const navigate = useNavigate();
-
   const [mobileMeu, setMobileMMenu] = useState({
     left: false,
   });
@@ -32,15 +36,8 @@ export const Navbar: FC = () => {
     ) {
       return;
     }
-    setMobileMMenu({ ...mobileMeu, [anchor]: open });
-  };
 
-  const handleItemClick = (text: string) => {
-    if (text === "Home") {
-      navigate("/");
-    } else if (text === "Products") {
-      navigate("/products");
-    }
+    setMobileMMenu({ ...mobileMeu, [anchor]: open });
   };
 
   const list = (anchor: string): JSX.Element => {
@@ -52,18 +49,22 @@ export const Navbar: FC = () => {
         onKeyDown={toogleDrawer(anchor, false)}
       >
         <List>
-          {["Home", "Products", "Post"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => handleItemClick(text)}>
-                <ListItemIcon>
-                  {index === 0 && <FeaturedPlayListIcon />}
-                  {index === 1 && <Home />}
-                  {index === 2 && <MiscellaneousServices />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {["Home", "Features", "Services", "Listed", "Contact"].map(
+            (text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index === 0 && <FeaturedPlayListIcon />}
+                    {index === 1 && <Home />}
+                    {index === 2 && <MiscellaneousServices />}
+                    {index === 3 && <ListAlt />}
+                    {index === 4 && <Contacts />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
         </List>
       </Box>
     );
@@ -71,7 +72,7 @@ export const Navbar: FC = () => {
 
   const NavLink = styled(Typography)(() => ({
     fontSize: "14px",
-    color: "#fff",
+    color: "#4F5361",
     fontWeigth: "bold",
     cursor: "pointer",
     "&:hover": {
@@ -79,7 +80,7 @@ export const Navbar: FC = () => {
     },
   }));
 
-  const NavbarLinksBox = styled(Box)(({ theme }) => ({
+  const NavbarLinksBox = styled(Typography)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -98,12 +99,11 @@ export const Navbar: FC = () => {
     },
   }));
 
-  const NavbarContainer = styled(Box)(({ theme }) => ({
+  const NavbarContainer = styled(Container)(({ theme }) => ({
     display: "flex",
-    backgroundColor: "#d2006e",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: theme.spacing(2),
+    padding: theme.spacing(5),
     [theme.breakpoints.down("md")]: {
       padding: theme.spacing(2),
     },
@@ -116,18 +116,6 @@ export const Navbar: FC = () => {
     },
   }));
 
-  const toProducts = () => {
-    navigate("/products");
-  };
-
-  const toHome = () => {
-    navigate("/");
-  };
-
-  const toPost = () => {
-    navigate("/post");
-  };
-
   return (
     <NavbarContainer>
       <Box
@@ -135,6 +123,7 @@ export const Navbar: FC = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          gap: "2.5rem",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -146,24 +135,16 @@ export const Navbar: FC = () => {
           >
             {list("left")}
           </Drawer>
-          <Box onClick={toHome}>
-            <NavbarLogo
-              src="https://www.bancoguayaquil.com/documents/images/logo_bg_white.png"
-              style={{ height: "40px" }}
-              alt="logo"
-            />
-          </Box>
+          <NavbarLogo src={logoImg} alt="logo" />
         </Box>
+        <NavbarLinksBox>
+          <NavLink variant="body2">Home</NavLink>
+          <NavLink variant="body2">Features</NavLink>
+          <NavLink variant="body2">Services</NavLink>
+          <NavLink variant="body2">Listed</NavLink>
+          <NavLink variant="body2">Contact</NavLink>
+        </NavbarLinksBox>
       </Box>
-
-      <NavbarLinksBox sx={{ marginRight: "70px" }}>
-        <NavLink onClick={toProducts}>
-          <Typography sx={{ fontSize: "1.6em" }}>Productos</Typography>
-        </NavLink>
-        <NavLink variant="body1" onClick={toPost}>
-          <Typography sx={{ fontSize: "1.6em" }}>Post</Typography>
-        </NavLink>
-      </NavbarLinksBox>
       <Box
         sx={{
           display: "flex",
@@ -172,7 +153,8 @@ export const Navbar: FC = () => {
           gap: "1rem",
         }}
       >
-        <NavLink variant="body2">Ingresar</NavLink>
+        <NavLink variant="body2">Sign Up</NavLink>
+        <Button backgroundColor="#0F1B4C" color="#fff" buttonText="Register" />
       </Box>
     </NavbarContainer>
   );
