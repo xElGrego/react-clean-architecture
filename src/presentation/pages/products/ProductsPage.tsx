@@ -14,8 +14,6 @@ import { FC, useEffect, useState } from "react";
 import { Product } from "../../../domain/models/product.model";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
-  deleteProduct,
-  getProducts,
   selectProduct,
   setProducts,
 } from "../../../store/products/product.slice";
@@ -23,6 +21,10 @@ import {
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { MuiDialog } from "./components/product.modal";
 import { Delete, Edit } from "@mui/icons-material";
+import {
+  deleteProduct,
+  getProducts,
+} from "../../../store/products/product.actions";
 
 export const ProductsPage: FC = () => {
   const [open, setOpen] = useState(false);
@@ -57,7 +59,6 @@ export const ProductsPage: FC = () => {
   const handleDeleteClick = (product: Product) => {
     // Lógica para manejar el clic en el botón de eliminación}
     dispatch(deleteProduct(product));
-    console.log("Eliminar elemento con ID:", product.id);
   };
 
   const columns: GridColDef[] = [

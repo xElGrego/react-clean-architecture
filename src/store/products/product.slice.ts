@@ -1,81 +1,15 @@
-import axios from "axios";
 import { Product } from "../../domain/models/product.model";
-import {
-  ActionReducerMapBuilder,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { toast } from "react-toastify";
 import { initialState, ProductState } from "./product.state";
-import { log } from "console";
+import {
+  createProduct,
+  deleteProduct,
+  getProducts,
+  updateProduct,
+} from "./product.actions";
 
 /* Actions */
-
-export const getProducts = createAsyncThunk<Product[]>(
-  "[Product] GetProducts",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get("http://localhost:3000/products");
-      return response.data;
-    } catch (error) {
-      toast.error("Error al obtener los productos");
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const createProduct = createAsyncThunk<Product, Product>(
-  "[GamesPage] CreateGame",
-  async (data, thunkAPI) => {
-    try {
-      const response = await axios.post("http://localhost:3000/products", data);
-      console.log("Response create", response);
-      toast.success("El juego se ha creado con éxito");
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const updateProduct = createAsyncThunk<Product, Product>(
-  "[GamesPage] UpdateGame",
-  async (data, thunkAPI) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:3000/products/${data.id}`,
-        data
-      );
-      console.log("RESPONSE put", response);
-      return response.data;
-    } catch (error) {
-      console.log("Error aqui", error);
-
-      toast.error("Error al actualizar el juego");
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const deleteProduct = createAsyncThunk<Product, Product>(
-  "[GamesPage] DeleteGame",
-  async (data, thunkAPI) => {
-    console.log("delete", data);
-
-    try {
-      const response = await axios.delete(
-        `http://localhost:3000/products/${data.id}`
-      );
-      console.log("response", response);
-      return data;
-    } catch (error) {
-      toast.error("Error al eliminar el juego");
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
 
 export const productSlice = createSlice({
   name: "products",

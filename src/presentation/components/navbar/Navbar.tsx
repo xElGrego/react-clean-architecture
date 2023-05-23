@@ -9,20 +9,14 @@ import {
   List,
   Drawer,
   ListItemText,
-  Button,
 } from "@mui/material";
 import { FC, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import logoImg from "../media/logo.png";
-
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
-import {
-  Contacts,
-  Home,
-  ListAlt,
-  MiscellaneousServices,
-} from "@mui/icons-material";
+import { Home, MiscellaneousServices } from "@mui/icons-material";
+
+import { useNavigate } from "react-router-dom";
 
 export const Navbar: FC = () => {
   const [mobileMeu, setMobileMMenu] = useState({
@@ -49,22 +43,18 @@ export const Navbar: FC = () => {
         onKeyDown={toogleDrawer(anchor, false)}
       >
         <List>
-          {["Home", "Features", "Services", "Listed", "Contact"].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index === 0 && <FeaturedPlayListIcon />}
-                    {index === 1 && <Home />}
-                    {index === 2 && <MiscellaneousServices />}
-                    {index === 3 && <ListAlt />}
-                    {index === 4 && <Contacts />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+          {["Home", "Post", "Products"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index === 0 && <FeaturedPlayListIcon />}
+                  {index === 1 && <Home />}
+                  {index === 2 && <MiscellaneousServices />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Box>
     );
@@ -72,7 +62,7 @@ export const Navbar: FC = () => {
 
   const NavLink = styled(Typography)(() => ({
     fontSize: "14px",
-    color: "#4F5361",
+    color: "#fff",
     fontWeigth: "bold",
     cursor: "pointer",
     "&:hover": {
@@ -99,11 +89,13 @@ export const Navbar: FC = () => {
     },
   }));
 
-  const NavbarContainer = styled(Container)(({ theme }) => ({
+  const NavbarContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
+    backgroundColor: "#d2006e",
+    color: "#fff",
     justifyContent: "space-between",
-    padding: theme.spacing(5),
+    padding: theme.spacing(3),
     [theme.breakpoints.down("md")]: {
       padding: theme.spacing(2),
     },
@@ -111,10 +103,17 @@ export const Navbar: FC = () => {
 
   const NavbarLogo = styled("img")(({ theme }) => ({
     cursor: "pointer",
+    height: "50px",
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
   }));
+
+  const navigate = useNavigate();
+
+  const navigatePost = (ruta: string) => {
+    navigate(`/${ruta}`);
+  };
 
   return (
     <NavbarContainer>
@@ -135,14 +134,19 @@ export const Navbar: FC = () => {
           >
             {list("left")}
           </Drawer>
-          <NavbarLogo src={logoImg} alt="logo" />
+          <NavbarLogo
+            src="https://www.bancoguayaquil.com/documents/images/logo_bg_white.png"
+            alt="logo"
+            onClick={() => navigatePost("")}
+          />
         </Box>
         <NavbarLinksBox>
-          <NavLink variant="body2">Home</NavLink>
-          <NavLink variant="body2">Features</NavLink>
-          <NavLink variant="body2">Services</NavLink>
-          <NavLink variant="body2">Listed</NavLink>
-          <NavLink variant="body2">Contact</NavLink>
+          <NavLink variant="body2" onClick={() => navigatePost("post")}>
+            Post
+          </NavLink>
+          <NavLink variant="body2" onClick={() => navigatePost("products")}>
+            Products
+          </NavLink>
         </NavbarLinksBox>
       </Box>
       <Box
@@ -153,8 +157,8 @@ export const Navbar: FC = () => {
           gap: "1rem",
         }}
       >
-        <NavLink variant="body2">Sign Up</NavLink>
-        <Button backgroundColor="#0F1B4C" color="#fff" buttonText="Register" />
+        <NavLink variant="body2">Ingresar</NavLink>
+        {/* <Button backgroundColor="#0F1B4C" color="#fff" buttonText="Register" /> */}
       </Box>
     </NavbarContainer>
   );

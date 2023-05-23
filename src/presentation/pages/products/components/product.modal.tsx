@@ -19,11 +19,12 @@ import {
   loading,
 } from "../../../../store/products/product.selector";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { selectProduct } from "../../../../store/products/product.slice";
+import { log } from "console";
 import {
   createProduct,
-  selectProduct,
   updateProduct,
-} from "../../../../store/products/product.slice";
+} from "../../../../store/products/product.actions";
 
 type MuiDialogProps = {
   openProp: boolean;
@@ -34,6 +35,12 @@ export const MuiDialog: FC<MuiDialogProps> = ({ openProp, closeProp }) => {
   const handleButtonClick = () => {
     dispatch(selectProduct(null));
     closeProp();
+    setProduct({
+      id: 0,
+      name: "",
+      description: "",
+    });
+    setTitle("Creando juego");
   };
 
   const dispatch = useAppDispatch();
@@ -45,6 +52,7 @@ export const MuiDialog: FC<MuiDialogProps> = ({ openProp, closeProp }) => {
   const loadings = useSelector(loading);
 
   useEffect(() => {
+    console.log("SelectProduct", selectedProduct);
     if (selectedProduct) {
       setTitle("Editando juego");
       setTitleButton("Actualizar");
@@ -121,7 +129,7 @@ export const MuiDialog: FC<MuiDialogProps> = ({ openProp, closeProp }) => {
                       value={product.description}
                       fullWidth
                       label="description"
-                      onClick={(e) => e.stopPropagation()} // Agrega esta línea para detener la propagación del evento
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </Grid>
 

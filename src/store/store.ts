@@ -14,6 +14,5 @@ export type RootState = ReturnType<typeof store.getState>;
 /* Para dispatchar acciones */
 export type AddDispatch = typeof store.dispatch;
 /* devuelve una función para despachar acciones con el tipo correcto */
-export const useAppDispatch = () => useDispatch<AddDispatch>();
-/* devuelve una función que permite seleccionar un slice del estado utilizando el tipo correcto */
+export const useAppDispatch: () => AddDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

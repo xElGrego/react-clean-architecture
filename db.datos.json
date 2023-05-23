@@ -2,28 +2,33 @@
   "products": [
     {
       "id": 1,
-      "name": "ads - editado",
-      "description": "asd - editado"
+      "name": "Nombre 1",
+      "description": "Descripcion 1"
     },
     {
       "id": 2,
-      "name": "asd",
-      "description": "asd"
+      "name": "Name 2",
+      "description": "Descripcion 2"
     },
     {
       "id": 3,
-      "name": "asd",
-      "description": "asd"
+      "name": "Nombre 3",
+      "description": "Descripcion 3"
     },
     {
       "id": 4,
-      "name": "3453",
-      "description": "asdf"
+      "name": "Name 4",
+      "description": "Descripcion 4"
     },
     {
-      "id": 5,
-      "name": "asd - editado",
-      "description": "asda -e dit"
+      "id": 6,
+      "name": "Name 6",
+      "description": "Descripcion 6"
+    },
+    {
+      "id": 7,
+      "name": "Nombre 7",
+      "description": "Descripcion 7"
     }
   ]
 }
